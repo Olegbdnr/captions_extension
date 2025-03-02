@@ -1,10 +1,19 @@
 {
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
+    "name": "Caption Translator Extension",
+    "description": "A Chrome extension that makes video captions interactive for language learners. Click on a word in the subtitles to see its translation.",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-      "default_popup": "hello.html",
-      "default_icon": "logo.png"
+      "default_popup": "popup/popup.html",
+      "default_icon": "images/logo.png"
+    },
+    "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://rezka-ua.org/films/*/*.html#t:238*",
+        "https://rezka-ua.org/series/*/*.html#t:238*"
+      ]
     }
-  }
+    ]
+}
