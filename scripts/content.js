@@ -1,25 +1,19 @@
-const addEventListenerToCaptions = () => {
-    
-    const captionsDiv = document.querySelector("pjsdiv span");
-    
-    if (captionsDiv) {
-        captionsDiv.addEventListener("click", () => {
-            console.log(captionsDiv.innerText);
-        });
-        console.log("Caption found and event listener added.");
-    } else {
-        console.log("Captions not found yet.");
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "captureCaptions") {
+        captureCaptions();
     }
-};
-
-const observer = new MutationObserver(() => {
-    addEventListenerToCaptions();
 });
 
-const parentContainer = document.getElementById("cdnplayer");
-observer.observe(parentContainer, {
-    childList: true,  
-    subtree: true     
-});
+function captureCaptions() {
+    let captionsContainer = document.querySelector('pjsdiv span')
+    ?.parentElement;
 
-addEventListenerToCaptions();
+    if (captionsContainer) {
+        captionsContainer.addEventListener("click", (event) => {
+            console.log("Caption clicked:", event.target.innerText);
+        });
+        alert("Captions captured! Click on subtitles to see logs.");
+    } else {
+        alert("Start the video first, then click again.");
+    }
+}
